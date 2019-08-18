@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <Resource id="myDSTestJTA" type="DataSource">
+        JdbcDriver org.hsqldb.jdbcDriver
+        JdbcUrl jdbc:hsqldb:mem:myDSTest;sql.syntax_pgs=true;shutdown=true
+        UserName sa
+        Password
+        JtaManaged true
+    </Resource>
+</resources>
+

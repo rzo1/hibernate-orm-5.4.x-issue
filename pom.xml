@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>kskb</groupId>
+    <artifactId>kskb</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <copyright.year>2019</copyright.year>
+        
+        <encoding>UTF-8</encoding>
+        <java.source>11</java.source>
+        <java.target>11</java.target>
+        <project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
+        <project.build.resourceEncoding>${encoding}</project.build.resourceEncoding>
+        <maven.compile.encoding>${encoding}</maven.compile.encoding>
+        <maven.compiler.target>${java.target}</maven.compiler.target>
+
+        <javax.persistence.version>2.2</javax.persistence.version>
+
+        <!-- FIXME change to 5.4.4 to produce test-issue -->
+        <hibernate.version>5.4.3.Final</hibernate.version>
+        <hsqldb.version>2.5.0</hsqldb.version>
+
+        <javaee.api.version>8.0-1</javaee.api.version>
+        <jakarta.xml.bind.version>2.3.2</jakarta.xml.bind.version>
+        <openejb.version>8.0.0-M3</openejb.version>
+        <tomee.version>8.0.0-M3</tomee.version>
+        <tomee.plugin.version>8.0.0-M3</tomee.plugin.version>
+
+        <!-- additional dependencies -->
+        <junit.version>4.12</junit.version>
+
+        <maven.compiler.plugin>3.8.1</maven.compiler.plugin>
+        <maven.surefire.plugin>2.22.1</maven.surefire.plugin>
+    </properties>
+
+    <dependencies>
+        <!-- Use this for JPA 2.2 -->
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>javax.persistence-api</artifactId>
+            <version>${javax.persistence.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Used to have JEE annotations -->
+        <dependency>
+            <groupId>org.apache.tomee</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>${javaee.api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+            <version>${jakarta.xml.bind.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+        <!-- Test scope dependencies -->
+        <dependency>
+            <groupId>org.apache.tomee</groupId>
+            <artifactId>openejb-core</artifactId>
+            <version>${openejb.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-jdk14</artifactId>
+                </exclusion>
+            </exclusions>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomee</groupId>
+            <artifactId>openejb-server</artifactId>
+            <version>${openejb.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomee</groupId>
+            <artifactId>openejb-junit</artifactId>
+            <version>${openejb.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin}</version>
+                <configuration>
+                    <source>${java.source}</source>
+                    <target>${java.target}</target>
+                    <encoding>${encoding}</encoding>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.tomee</groupId>
+                        <artifactId>javaee-api</artifactId>
+                        <version>${javaee.api.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.plugin}</version>
+                <configuration>
+                    <forkMode>once</forkMode>
+                    <argLine>-Xmx900m -XX:+CMSClassUnloadingEnabled -Dfile.encoding=UTF-8</argLine>
+                    <!-- Show 100% of the lines from the stack trace (doesn't work) -->
+                    <trimStackTrace>false</trimStackTrace>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
