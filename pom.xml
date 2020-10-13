@@ -32,7 +32,7 @@
         <tomee.plugin.version>8.0.0-M3</tomee.plugin.version>
 
         <!-- additional dependencies -->
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
         <slf4j.version>1.7.21</slf4j.version>
         <log4j.version>1.2.17</log4j.version>
 
